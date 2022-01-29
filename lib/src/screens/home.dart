@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/src/helpers/style.dart';
 import 'package:food_delivery/src/widgets/categories.dart';
 import 'package:food_delivery/src/widgets/custom_text.dart';
+import 'package:food_delivery/src/widgets/featured_products.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -50,7 +51,11 @@ class _HomeState extends State<Home> {
           ),
           // Search BOX
           SearchInput(textController: search!, hintText: "Search"),
-          CategoriesList()
+          CategoriesList(),
+          Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: CustomText(text: 'Featured', size: 20, color: grey)),
+          Featured(),
         ],
       )),
     );
