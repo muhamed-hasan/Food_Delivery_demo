@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/src/helpers/screen_navigation.dart';
 import 'package:food_delivery/src/helpers/style.dart';
+import 'package:food_delivery/src/screens/bag.dart';
 import 'package:food_delivery/src/widgets/bottom_navigation_icons.dart';
 import 'package:food_delivery/src/widgets/categories.dart';
 import 'package:food_delivery/src/widgets/custom_text.dart';
@@ -180,17 +182,21 @@ class _HomeState extends State<Home> {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            BottomNavIcon(
+            const BottomNavIcon(
               image: "home.png",
               name: "Home",
             ),
             BottomNavIcon(
               image: "shopping-bag.png",
-              name: "Card",
+              name: "Bag",
+              onPressed: () {
+                changeScreen(context, const BagScreen());
+              },
             ),
             BottomNavIcon(
               image: "avatar.png",
               name: "Account",
+              onPressed: () {},
             ),
           ],
         ),
