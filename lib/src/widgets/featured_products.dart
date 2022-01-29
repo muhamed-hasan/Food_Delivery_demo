@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/src/helpers/screen_navigation.dart';
 import 'package:food_delivery/src/models/product.dart';
+import 'package:food_delivery/src/screens/details.dart';
 
 import '../helpers/style.dart';
 import 'custom_text.dart';
@@ -40,7 +42,13 @@ class Featured extends StatelessWidget {
             return Padding(
                 padding: const EdgeInsets.fromLTRB(12, 14, 16, 12),
                 child: GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    changeScreen(
+                        context,
+                        DetailsScreen(
+                          product: productsList[index],
+                        ));
+                  },
                   child: Container(
                     height: 220,
                     width: 200,
@@ -52,8 +60,9 @@ class Featured extends StatelessWidget {
                     ]),
                     child: Column(
                       children: <Widget>[
-                        Image.asset(
-                          "images/${productsList[index].image}",
+                        Image.network(
+                          "https://firebasestorage.googleapis.com/v0/b/flutterbricks-public.appspot.com/o/malika%2FImage-1.png?alt=media&token=245741de-7966-4f5b-805f-6dd8e5dbea80",
+                          fit: BoxFit.cover,
                           height: 140,
                           width: 140,
                         ),
