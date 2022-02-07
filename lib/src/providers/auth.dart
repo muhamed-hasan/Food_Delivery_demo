@@ -15,7 +15,7 @@ class AuthProvider with ChangeNotifier {
   String appName = 'foodAPP';
   String collection = 'users';
   final _userServices = UserServices();
-  UserModel? _userModel;
+  UserModel? userModel;
   User? _user;
 
   Status get status => _status;
@@ -77,12 +77,12 @@ class AuthProvider with ChangeNotifier {
     }
   }
 
-  Future<void> signOut() async {
+  signOut() async {
     _auth?.signOut();
     _status = Status.Unauthenticated;
     notifyListeners();
 
-    return Future.delayed(Duration.zero);
+    // return Future.delayed(Duration.zero);
   }
 
   void clearController() {
@@ -97,7 +97,7 @@ class AuthProvider with ChangeNotifier {
     } else {
       _user = firebaseUser;
       _status = Status.Authenticated;
-      _userModel = await _userServices.getUserById(user!.uid);
+      userModel = await _userServices.getUserById(user!.uid);
     }
     notifyListeners();
   }

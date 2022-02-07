@@ -27,13 +27,13 @@ class UserServices {
         .update(values);
   }
 
-  Future<UserModel>? getUserById(String id) {
-    _fireStore
+  Future<UserModel?> getUserById(String id) async {
+    var user = await _fireStore
         .collection(appName)
         .doc(collection)
         .collection(collection)
         .doc(id)
-        .get()
-        .then((value) => UserModel.fromSnapshot(value));
+        .get();
+    return UserModel.fromSnapshot(user);
   }
 }
