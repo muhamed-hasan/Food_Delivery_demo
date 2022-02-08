@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/src/models/category.dart';
 import 'package:food_delivery/src/providers/category_provider.dart';
+import 'package:food_delivery/src/widgets/loading.dart';
 import 'package:provider/provider.dart';
+import 'package:transparent_image/transparent_image.dart';
 
 // List<CategoryModel> categories = [];
 
@@ -46,18 +48,23 @@ class CategoryCard extends StatelessWidget {
             Container(
               decoration: BoxDecoration(
                   border: Border.all(width: 0, color: const Color(0xffFF8527)),
-                  borderRadius: BorderRadius.circular(20.0)),
-              child: ClipRRect(
-                  child: Image.network(
-                    category.image!,
-                    width: 80,
-                    height: 80,
-                    fit: BoxFit.cover,
-                  ),
-                  borderRadius: BorderRadius.circular(10)),
+                  borderRadius: BorderRadius.circular(10.0)),
+              child: Stack(
+                children: [
+                  Positioned.fill(child: Loading()),
+                  ClipRRect(
+                      child: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image: category.image!,
+                          width: 90,
+                          height: 90,
+                          fit: BoxFit.cover),
+                      borderRadius: BorderRadius.circular(10)),
+                ],
+              ),
             ),
             const SizedBox(
-              height: 12.5,
+              height: 8,
             ),
             Text(
               category.name ?? 'error',
