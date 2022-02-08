@@ -1,7 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
-import 'package:food_delivery/src/providers/auth.dart';
+import 'package:food_delivery/src/providers/category_provider.dart';
+import 'package:food_delivery/src/providers/user_provider.dart';
 import 'package:food_delivery/src/screens/home.dart';
 import 'package:food_delivery/src/screens/login.dart';
 import 'package:food_delivery/src/widgets/loading.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
           }
           return MultiProvider(
             providers: [
-              ChangeNotifierProvider.value(value: AuthProvider.initialize())
+              ChangeNotifierProvider.value(value: UserProvider.initialize()),
+              ChangeNotifierProvider.value(value: CategoryProvider.initialize())
             ],
             child: snapshot.connectionState == ConnectionState.waiting
                 ? Loading()
@@ -45,7 +47,7 @@ class MyApp extends StatelessWidget {
 class ScreensController extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    final auth = Provider.of<AuthProvider>(context);
+    final auth = Provider.of<UserProvider>(context);
     switch (auth.status) {
       case Status.Uninitialized:
         return Loading();
