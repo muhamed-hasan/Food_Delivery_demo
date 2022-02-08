@@ -11,7 +11,7 @@ class UserServices {
     String id = values['id'];
     _fireStore
         .collection(appName)
-        .doc(collection)
+        .doc(appName)
         .collection(collection)
         .doc(id)
         .set(values);
@@ -21,7 +21,7 @@ class UserServices {
     String id = values['id'];
     _fireStore
         .collection(appName)
-        .doc(collection)
+        .doc(appName)
         .collection(collection)
         .doc(values[id])
         .update(values);
@@ -30,7 +30,7 @@ class UserServices {
   Future<UserModel?> getUserById(String id) async {
     var user = await _fireStore
         .collection(appName)
-        .doc(collection)
+        .doc(appName)
         .collection(collection)
         .doc(id)
         .get();

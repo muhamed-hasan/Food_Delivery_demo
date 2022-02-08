@@ -1,14 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/src/helpers/screen_navigation.dart';
 import 'package:food_delivery/src/helpers/style.dart';
-import 'package:food_delivery/src/providers/auth.dart';
+import 'package:food_delivery/src/models/category.dart';
+import 'package:food_delivery/src/providers/category_provider.dart';
+import 'package:food_delivery/src/providers/user_provider.dart';
+
 import 'package:food_delivery/src/screens/bag.dart';
-import 'package:food_delivery/src/widgets/bottom_navigation_icons.dart';
 import 'package:food_delivery/src/widgets/categories.dart';
 import 'package:food_delivery/src/widgets/custom_text.dart';
 import 'package:food_delivery/src/widgets/featured_products.dart';
 import 'package:food_delivery/src/widgets/small_floating_button.dart';
 import 'package:provider/provider.dart';
+
+import '../providers/user_provider.dart';
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
@@ -21,7 +25,8 @@ class _HomeState extends State<Home> {
   TextEditingController? search = TextEditingController();
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
+
     return Scaffold(
       appBar: AppBar(
         iconTheme: const IconThemeData(color: black),
@@ -63,12 +68,12 @@ class _HomeState extends State<Home> {
           ),
         ],
       ),
-      drawer: myDrawer(authProvider),
+      drawer: myDrawer(userProvider),
       backgroundColor: white,
       body: SafeArea(
           child: ListView(
         children: [
-          // Search BOX
+          //! Search BOX
           SearchInput(textController: search!, hintText: "Search"),
           CategoriesList(),
           Padding(
@@ -79,7 +84,7 @@ class _HomeState extends State<Home> {
           Padding(
               padding: const EdgeInsets.all(8.0),
               child: CustomText(text: 'Pupular', size: 20, color: grey)),
-          // POPULAR PRODUCT
+          //! POPULAR PRODUCT
           Padding(
             padding: const EdgeInsets.all(2.0),
             child: Stack(
@@ -193,20 +198,20 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Drawer myDrawer(AuthProvider authProvider) {
+  Drawer myDrawer(UserProvider UserProvider) {
     return Drawer(
       child: ListView(
         children: <Widget>[
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(color: primary),
             accountName: CustomText(
-              text: authProvider.userModel?.name ?? 'email',
+              text: UserProvider.userModel?.name ?? 'email',
               color: white,
               weight: FontWeight.bold,
               size: 18,
             ),
             accountEmail: CustomText(
-              text: authProvider.userModel?.email ?? 'error',
+              text: UserProvider.userModel?.email ?? 'error',
               color: white,
             ),
           ),

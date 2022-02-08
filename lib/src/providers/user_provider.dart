@@ -8,7 +8,7 @@ import 'package:food_delivery/src/models/user_model.dart';
 
 enum Status { Uninitialized, Unauthenticated, Authenticated, Authenticating }
 
-class AuthProvider with ChangeNotifier {
+class UserProvider with ChangeNotifier {
   FirebaseAuth? _auth;
   Status _status = Status.Uninitialized;
   final _fireStore = FirebaseFirestore.instance;
@@ -26,7 +26,7 @@ class AuthProvider with ChangeNotifier {
   TextEditingController name = TextEditingController();
   TextEditingController password = TextEditingController();
 
-  AuthProvider.initialize() : _auth = FirebaseAuth.instance {
+  UserProvider.initialize() : _auth = FirebaseAuth.instance {
     _auth?.authStateChanges().listen(_onStateChanged);
   }
 
@@ -50,26 +50,25 @@ class AuthProvider with ChangeNotifier {
     try {
       _status = Status.Authenticating;
       notifyListeners();
-
-      await _auth
-          ?.createUserWithEmailAndPassword(
+      await _auth!
+          .createUserWithEmailAndPassword(
               email: email.text.trim(), password: password.text.trim())
-          .then((result) async {
-        await _userServices.createUser(
-            {'name': name.text, 'email': email.text, 'id': result.user?.uid});
-        // _fireStore
-        //     .collection(appName)
-        //     .doc(collection)
-        //     .collection(collection)
-        //     .doc(result.user?.uid)
-        //     .set({
-        //   'name': name.text,
-        //   'email': email.text,
-        //   'id': result.user?.uid
-        // });
+          .then((result) {
+        _fireStore
+            .collection(appName)
+            .doc(appName)
+            .collection(collection)
+            .doc(result.user!.uid)
+            .set({
+          'name': name.text,
+          'email': email.text,
+          'uid': result.user!.uid,
+          "likedFood": [],
+          "likedRestaurants": []
+        });
       });
       return true;
-    } on FirebaseAuthException catch (e) {
+    } catch (e) {
       _status = Status.Unauthenticated;
       notifyListeners();
       print(e.toString());

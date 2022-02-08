@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/src/helpers/screen_navigation.dart';
 
 import 'package:food_delivery/src/helpers/style.dart';
-import 'package:food_delivery/src/providers/auth.dart';
+import 'package:food_delivery/src/providers/user_provider.dart';
 import 'package:food_delivery/src/screens/home.dart';
 import 'package:food_delivery/src/screens/login.dart';
 import 'package:food_delivery/src/widgets/custom_text.dart';
@@ -19,11 +19,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       key: _key,
       backgroundColor: white,
-      body: authProvider.status == Status.Authenticating
+      body: userProvider.status == Status.Authenticating
           ? Loading()
           : SingleChildScrollView(
               child: Column(
@@ -48,7 +48,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          controller: authProvider.name,
+                          controller: userProvider.name,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Username",
@@ -66,7 +66,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          controller: authProvider.email,
+                          controller: userProvider.email,
                           decoration: InputDecoration(
                               border: InputBorder.none,
                               hintText: "Emails",
@@ -84,7 +84,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       child: Padding(
                         padding: EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          controller: authProvider.password,
+                          controller: userProvider.password,
                           obscureText: true,
                           decoration: InputDecoration(
                               border: InputBorder.none,
@@ -99,12 +99,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     padding: const EdgeInsets.all(10),
                     child: GestureDetector(
                       onTap: () async {
-                        if (!await authProvider.signUp()) {
+                        if (!await userProvider.signUp()) {
                           _key.currentState!.showSnackBar(
                               const SnackBar(content: Text('Login Faild')));
                           return;
                         }
-                        authProvider.clearController();
+                        userProvider.clearController();
                         changeScreenReplacement(context, Home());
                       },
                       child: Container(

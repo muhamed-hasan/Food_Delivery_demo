@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/src/helpers/screen_navigation.dart';
 import 'package:food_delivery/src/helpers/style.dart';
-import 'package:food_delivery/src/providers/auth.dart';
+import 'package:food_delivery/src/providers/user_provider.dart';
 import 'package:food_delivery/src/screens/home.dart';
 import 'package:food_delivery/src/screens/registration.dart';
 import 'package:food_delivery/src/widgets/custom_text.dart';
@@ -17,11 +17,11 @@ class _LoginScreenState extends State<LoginScreen> {
   final _key = GlobalKey<ScaffoldState>();
   @override
   Widget build(BuildContext context) {
-    final authProvider = Provider.of<AuthProvider>(context);
+    final userProvider = Provider.of<UserProvider>(context);
     return Scaffold(
       key: _key,
       backgroundColor: white,
-      body: authProvider.status == Status.Authenticating
+      body: userProvider.status == Status.Authenticating
           ? Loading()
           : SingleChildScrollView(
               child: Column(
@@ -46,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                       child: Padding(
                         padding: const EdgeInsets.only(left: 10),
                         child: TextFormField(
-                          controller: authProvider.email,
+                          controller: userProvider.email,
                           decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: "Emails",
@@ -65,7 +65,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         padding: const EdgeInsets.only(left: 10),
                         child: TextFormField(
                           obscureText: true,
-                          controller: authProvider.password,
+                          controller: userProvider.password,
                           decoration: const InputDecoration(
                               border: InputBorder.none,
                               hintText: "Password",
@@ -78,12 +78,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     padding: const EdgeInsets.all(10),
                     child: GestureDetector(
                       onTap: () async {
-                        if (!await authProvider.signIn()) {
+                        if (!await userProvider.signIn()) {
                           _key.currentState!.showSnackBar(
                               const SnackBar(content: Text('Login Faild')));
                           return;
                         }
-                        authProvider.clearController();
+                        userProvider.clearController();
                         changeScreenReplacement(context, Home());
                       },
                       child: Container(
