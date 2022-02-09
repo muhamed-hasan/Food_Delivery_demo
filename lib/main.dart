@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/src/providers/category_provider.dart';
+import 'package:food_delivery/src/providers/products_provider.dart';
 import 'package:food_delivery/src/providers/restaurant_provider%20.dart';
 import 'package:food_delivery/src/providers/user_provider.dart';
 import 'package:food_delivery/src/screens/home.dart';
@@ -33,6 +34,8 @@ class MyApp extends StatelessWidget {
                   value: RestaurantProvider.initialize()),
               ChangeNotifierProvider.value(
                   value: CategoryProvider.initialize()),
+              ChangeNotifierProvider.value(
+                  value: ProductsProvider.initialize()),
             ],
             child: snapshot.connectionState == ConnectionState.waiting
                 ? Loading()

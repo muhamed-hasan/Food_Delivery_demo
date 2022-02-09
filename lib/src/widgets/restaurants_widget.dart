@@ -114,29 +114,24 @@ class RestaurantsCard extends StatelessWidget {
           )),
           Positioned.fill(
               child: Align(
-            alignment: Alignment.bottomCenter,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Padding(
-                  padding: const EdgeInsets.fromLTRB(12, 8, 8, 8),
-                  child: RichText(
-                    text: TextSpan(children: [
-                      TextSpan(
-                          text: "${restaurant.name} \n",
-                          style: TextStyle(
-                              fontSize: 20, fontWeight: FontWeight.bold)),
-                      TextSpan(
-                          text: "Avg meal price: ",
-                          style: TextStyle(
-                              fontSize: 16, fontWeight: FontWeight.w300)),
-                      TextSpan(
-                          text: "\$${restaurant.avgPrice}\n",
-                          style: TextStyle(fontSize: 16)),
-                    ], style: TextStyle(color: white)),
-                  ),
-                ),
-              ],
+            alignment: Alignment.bottomLeft,
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(12, 8, 8, 8),
+              child: RichText(
+                text: TextSpan(children: [
+                  TextSpan(
+                      text: "${restaurant.name} \n",
+                      style:
+                          TextStyle(fontSize: 20, fontWeight: FontWeight.bold)),
+                  TextSpan(
+                      text: "Avg meal price: ",
+                      style:
+                          TextStyle(fontSize: 16, fontWeight: FontWeight.w300)),
+                  TextSpan(
+                      text: "\$${restaurant.avgPrice}\n",
+                      style: TextStyle(fontSize: 16)),
+                ], style: TextStyle(color: white)),
+              ),
             ),
           ))
         ],

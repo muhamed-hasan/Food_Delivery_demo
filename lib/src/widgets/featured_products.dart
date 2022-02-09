@@ -1,43 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery/src/helpers/screen_navigation.dart';
-import 'package:food_delivery/src/models/product.dart';
+import 'package:food_delivery/src/models/product_model.dart';
+import 'package:food_delivery/src/providers/products_provider.dart';
 import 'package:food_delivery/src/screens/details.dart';
+import 'package:provider/provider.dart';
 
 import '../helpers/style.dart';
 import 'custom_text.dart';
 
-List<Product> productsList = [
-  Product(
-      name: "Pizza",
-      price: 20.0,
-      rating: 4.3,
-      vendor: "Papa's Pizza",
-      wishList: false,
-      image: "5.jpg"),
-  Product(
-      name: "Fried rice",
-      price: 20.0,
-      rating: 4.3,
-      vendor: "Papa's Pizza",
-      wishList: true,
-      image: "1.jpg"),
-  Product(
-      name: "Jollof rice",
-      price: 20.0,
-      rating: 4.3,
-      vendor: "Papa's Pizza",
-      wishList: true,
-      image: "1.jpg"),
-];
-
 class Featured extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    final productProvider = Provider.of<ProductsProvider>(context);
     return SizedBox(
       height: 240,
       child: ListView.builder(
           scrollDirection: Axis.horizontal,
-          itemCount: productsList.length,
+          itemCount: productProvider.products.length,
           itemBuilder: (_, index) {
             return Padding(
                 padding: const EdgeInsets.fromLTRB(12, 14, 16, 12),
@@ -46,7 +25,7 @@ class Featured extends StatelessWidget {
                     changeScreen(
                         context,
                         DetailsScreen(
-                          product: productsList[index],
+                          product: productProvider.products[index],
                         ));
                   },
                   child: Container(
@@ -59,12 +38,12 @@ class Featured extends StatelessWidget {
                           blurRadius: 30),
                     ]),
                     child: Column(
-                      children: <Widget>[
+                      children: [
                         Image.network(
-                          "https://firebasestorage.googleapis.com/v0/b/flutterbricks-public.appspot.com/o/malika%2FImage-1.png?alt=media&token=245741de-7966-4f5b-805f-6dd8e5dbea80",
+                          productProvider.products[index].image ?? '',
                           fit: BoxFit.cover,
                           height: 140,
-                          width: 140,
+                          // width: 140,
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -72,7 +51,8 @@ class Featured extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CustomText(
-                                text: productsList[index].name,
+                                text: productProvider.products[index].name ??
+                                    'asdas',
                               ),
                             ),
                             Padding(
@@ -89,17 +69,18 @@ class Featured extends StatelessWidget {
                                     ]),
                                 child: Padding(
                                   padding: const EdgeInsets.all(4.0),
-                                  child: productsList[index].wishList
-                                      ? const Icon(
-                                          Icons.favorite,
-                                          color: red,
-                                          size: 18,
-                                        )
-                                      : const Icon(
-                                          Icons.favorite_border,
-                                          color: red,
-                                          size: 18,
-                                        ),
+                                  child:
+                                      productProvider.products[index].featured!
+                                          ? const Icon(
+                                              Icons.favorite,
+                                              color: red,
+                                              size: 18,
+                                            )
+                                          : const Icon(
+                                              Icons.favorite_border,
+                                              color: red,
+                                              size: 18,
+                                            ),
                                 ),
                               ),
                             )
@@ -113,7 +94,8 @@ class Featured extends StatelessWidget {
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: CustomText(
-                                    text: productsList[index].rating.toString(),
+                                    text: productProvider.products[index].rating
+                                        .toString(),
                                     color: grey,
                                     size: 14.0,
                                   ),
@@ -144,7 +126,8 @@ class Featured extends StatelessWidget {
                             Padding(
                               padding: const EdgeInsets.only(right: 8.0),
                               child: CustomText(
-                                text: "\$${productsList[index].price}",
+                                text:
+                                    "\$${productProvider.products[index].price}",
                                 weight: FontWeight.bold,
                               ),
                             ),
