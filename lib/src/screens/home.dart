@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
   Drawer myDrawer(UserProvider UserProvider) {
     return Drawer(
       child: ListView(
-        children: <Widget>[
+        children: [
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(color: primary),
             accountName: CustomText(

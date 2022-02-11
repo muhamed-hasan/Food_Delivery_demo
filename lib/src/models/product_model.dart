@@ -11,16 +11,18 @@ class ProductModel {
   static const CATEGORY = "category";
   static const FEATURED = "featured";
   static const RATES = "rates";
+  static const DESCRIPTION = "description";
 
   String? _id;
   String? _name;
-  String? _restaurantId;
+  int? _restaurantId;
   String? _restaurant;
   String? _category;
   String? _image;
   double? _rating;
   double? _price;
   int? _rates;
+  String? _description;
 
   bool? _featured;
 
@@ -30,7 +32,7 @@ class ProductModel {
 
   String? get restaurant => _restaurant;
 
-  String? get restaurantId => _restaurantId;
+  int? get restaurantId => _restaurantId;
 
   String? get category => _category;
 
@@ -43,6 +45,7 @@ class ProductModel {
   bool? get featured => _featured;
 
   int? get rates => _rates;
+  String? get description => _description;
 
   ProductModel.fromSnapshot(DocumentSnapshot snapshot) {
     Map<String, dynamic> data = snapshot.data()! as Map<String, dynamic>;
@@ -58,5 +61,6 @@ class ProductModel {
     _category = data[CATEGORY];
     _rating = data[RATING];
     _rates = data[RATES];
+    _description = data[DESCRIPTION];
   }
 }

@@ -21,4 +21,36 @@ class ProductService {
 
         return products;
       });
+
+  Future<List<ProductModel>> getProductsByRestaurant({required int id}) async =>
+      _firestore
+          .collection(appName)
+          .doc(appName)
+          .collection(collection)
+          .where("restaurantId", isEqualTo: id)
+          .get()
+          .then((result) {
+        List<ProductModel> products = [];
+        for (DocumentSnapshot product in result.docs) {
+          products.add(ProductModel.fromSnapshot(product));
+        }
+        return products;
+      });
+
+  Future<List<ProductModel>> getProductsOfCategory(
+          {required String category}) async =>
+      _firestore
+          .collection(appName)
+          .doc(appName)
+          .collection(collection)
+          .where("category", isEqualTo: category)
+          .get()
+          .then((result) {
+        print(result);
+        List<ProductModel> products = [];
+        for (DocumentSnapshot product in result.docs) {
+          products.add(ProductModel.fromSnapshot(product));
+        }
+        return products;
+      });
 }

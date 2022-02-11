@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/src/helpers/screen_navigation.dart';
 import 'package:food_delivery/src/models/category.dart';
 import 'package:food_delivery/src/providers/category_provider.dart';
+import 'package:food_delivery/src/providers/products_provider.dart';
+import 'package:food_delivery/src/screens/category.dart';
 import 'package:food_delivery/src/widgets/loading.dart';
 import 'package:provider/provider.dart';
 import 'package:transparent_image/transparent_image.dart';
@@ -8,8 +11,6 @@ import 'package:transparent_image/transparent_image.dart';
 // List<CategoryModel> categories = [];
 
 class CategoriesList extends StatelessWidget {
-  CategoriesList({Key? key}) : super(key: key);
-
   @override
   Widget build(BuildContext context) {
     final categoryProvider = Provider.of<CategoryProvider>(context);
@@ -22,7 +23,10 @@ class CategoriesList extends StatelessWidget {
             return CategoryCard(
               category: categoryProvider.categories[index],
               onTap: () {
-                print(categoryProvider.categories[index].name);
+                changeScreen(
+                    context,
+                    CategoryScreen(
+                        categoryModel: categoryProvider.categories[index]));
               },
             );
           },

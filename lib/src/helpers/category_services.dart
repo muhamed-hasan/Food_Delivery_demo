@@ -9,7 +9,7 @@ class CategoryServices {
 
   Future<List<CategoryModel>> getCategories() async => _firestore
           .collection(appName)
-          .doc('foodApp')
+          .doc(appName)
           .collection(collection)
           .get()
           .then((result) {
