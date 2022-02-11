@@ -8,14 +8,12 @@ class Loading extends StatelessWidget {
     return Center(
       child: Container(
         color: white,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
-            SpinKitFadingCircle(
-              color: red,
-              size: 50.0,
-            )
-          ],
+        child: Directionality(
+          textDirection: TextDirection.rtl,
+          child: const SpinKitFadingCircle(
+            color: red,
+            size: 50.0,
+          ),
         ),
       ),
     );

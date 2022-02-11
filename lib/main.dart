@@ -1,4 +1,3 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery/src/providers/category_provider.dart';
@@ -10,44 +9,33 @@ import 'package:food_delivery/src/screens/login.dart';
 import 'package:food_delivery/src/widgets/loading.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp();
   runApp(MyApp());
 }
 
 class MyApp extends StatelessWidget {
   MyApp({Key? key}) : super(key: key);
-  final Future<FirebaseApp> _initialization = Firebase.initializeApp();
+  // final Future<FirebaseApp> _initialization = Firebase.initializeApp();
 
   @override
   Widget build(BuildContext context) {
-    return FutureBuilder(
-        future: _initialization,
-        builder: (context, snapshot) {
-          if (snapshot.hasError) {
-            print("Error: " + snapshot.toString());
-          }
-          return MultiProvider(
-            providers: [
-              ChangeNotifierProvider.value(value: UserProvider.initialize()),
-              ChangeNotifierProvider.value(
-                  value: RestaurantProvider.initialize()),
-              ChangeNotifierProvider.value(
-                  value: CategoryProvider.initialize()),
-              ChangeNotifierProvider.value(
-                  value: ProductsProvider.initialize()),
-            ],
-            child: snapshot.connectionState == ConnectionState.waiting
-                ? Loading()
-                : MaterialApp(
-                    debugShowCheckedModeBanner: false,
-                    title: 'Flutter Demo',
-                    theme: ThemeData(
-                      primarySwatch: Colors.red,
-                    ),
-                    home: ScreensController()),
-          );
-        });
+    return MultiProvider(
+      providers: [
+        ChangeNotifierProvider.value(value: UserProvider.initialize()),
+        ChangeNotifierProvider.value(value: RestaurantProvider.initialize()),
+        ChangeNotifierProvider.value(value: CategoryProvider.initialize()),
+        ChangeNotifierProvider.value(value: ProductsProvider.initialize()),
+      ],
+      child: MaterialApp(
+          debugShowCheckedModeBanner: false,
+          title: 'Flutter Demo',
+          theme: ThemeData(
+            primarySwatch: Colors.red,
+          ),
+          home: ScreensController()),
+    );
   }
 }
 
@@ -57,7 +45,7 @@ class ScreensController extends StatelessWidget {
     final auth = Provider.of<UserProvider>(context);
     switch (auth.status) {
       case Status.Uninitialized:
-        return Loading();
+        return Center(child: Loading());
       case Status.Unauthenticated:
       case Status.Authenticating:
         return LoginScreen();

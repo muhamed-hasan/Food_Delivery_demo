@@ -21,7 +21,7 @@ class BottomNavIcon extends StatelessWidget {
       child: GestureDetector(
         onTap: onPressed,
         child: Column(
-          children: <Widget>[
+          children: [
             Image.asset(
               "images/$image",
               width: 20,

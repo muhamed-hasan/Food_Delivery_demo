@@ -22,6 +22,7 @@ class Featured extends StatelessWidget {
                 padding: const EdgeInsets.fromLTRB(12, 14, 16, 12),
                 child: GestureDetector(
                   onTap: () {
+                    print(productProvider.products[index].name);
                     changeScreen(
                         context,
                         DetailsScreen(
@@ -47,7 +48,7 @@ class Featured extends StatelessWidget {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
+                          children: [
                             Padding(
                               padding: const EdgeInsets.all(8.0),
                               child: CustomText(
@@ -88,9 +89,9 @@ class Featured extends StatelessWidget {
                         ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
+                          children: [
                             Row(
-                              children: <Widget>[
+                              children: [
                                 Padding(
                                   padding: const EdgeInsets.only(left: 8.0),
                                   child: CustomText(
