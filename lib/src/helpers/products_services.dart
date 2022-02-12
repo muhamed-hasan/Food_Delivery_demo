@@ -53,4 +53,24 @@ class ProductService {
         }
         return products;
       });
+
+  Future<List<ProductModel>> searchProducts({required String productName}) {
+    // code to convert the first character to uppercase
+    String searchKey = productName[0].toUpperCase() + productName.substring(1);
+    return _firestore
+        .collection(appName)
+        .doc(appName)
+        .collection(collection)
+        .orderBy("name")
+        .startAt([searchKey])
+        .endAt([searchKey + '\uf8ff'])
+        .get()
+        .then((result) {
+          List<ProductModel> products = [];
+          for (DocumentSnapshot product in result.docs) {
+            products.add(ProductModel.fromSnapshot(product));
+          }
+          return products;
+        });
+  }
 }

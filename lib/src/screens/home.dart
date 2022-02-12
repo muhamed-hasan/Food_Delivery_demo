@@ -2,11 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:food_delivery/src/helpers/screen_navigation.dart';
 import 'package:food_delivery/src/helpers/style.dart';
 import 'package:food_delivery/src/models/category.dart';
+import 'package:food_delivery/src/providers/app.dart';
 import 'package:food_delivery/src/providers/category_provider.dart';
+import 'package:food_delivery/src/providers/products_provider.dart';
 import 'package:food_delivery/src/providers/restaurant_provider%20.dart';
 import 'package:food_delivery/src/providers/user_provider.dart';
 
 import 'package:food_delivery/src/screens/bag.dart';
+import 'package:food_delivery/src/screens/product_search.dart';
+import 'package:food_delivery/src/screens/restaurants_search.dart';
 import 'package:food_delivery/src/widgets/categories.dart';
 import 'package:food_delivery/src/widgets/custom_text.dart';
 import 'package:food_delivery/src/widgets/featured_products.dart';
@@ -29,6 +33,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     final userProvider = Provider.of<UserProvider>(context);
+    final productProvider = Provider.of<ProductsProvider>(context);
 
     return Scaffold(
       appBar: AppBar(
@@ -77,7 +82,10 @@ class _HomeState extends State<Home> {
           child: ListView(
         children: [
           //! Search BOX
-          SearchInput(textController: search!, hintText: "Search"),
+          SearchInput(
+              textController: search!,
+              hintText: "Search",
+              productProvider: productProvider),
           CategoriesList(),
           Padding(
               padding: const EdgeInsets.all(8.0),
@@ -157,12 +165,18 @@ class _HomeState extends State<Home> {
 class SearchInput extends StatelessWidget {
   final TextEditingController textController;
   final String hintText;
+  final ProductsProvider productProvider;
   const SearchInput(
-      {required this.textController, required this.hintText, Key? key})
+      {required this.textController,
+      required this.hintText,
+      Key? key,
+      required this.productProvider})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final restaurantProvider = Provider.of<RestaurantProvider>(context);
+    final app = Provider.of<AppProvider>(context);
     return Container(
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
@@ -172,13 +186,51 @@ class SearchInput extends StatelessWidget {
             color: Colors.grey.withOpacity(.1)),
       ]),
       child: TextField(
+        textInputAction: TextInputAction.search,
         controller: textController,
-        onChanged: (value) {
-          //Do something wi
+        onSubmitted: (value) async {
+          await productProvider.search(productName: value);
+          app.changeLoading();
+          if (app.search == SearchBy.PRODUCTS) {
+            await productProvider.search(productName: value);
+            changeScreen(context, ProductSearchScreen());
+          } else {
+            await restaurantProvider.search(name: value);
+            changeScreen(context, RestaurantsSearchScreen());
+          }
+          app.changeLoading();
         },
+        // onChanged: (value) {
+        //   //Do something wi
+        // },
         decoration: InputDecoration(
           prefixIcon: const Icon(Icons.search, color: red),
-          suffixIcon: const Icon(Icons.filter_list, color: red),
+          suffixIcon: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: DropdownButton(
+              underline: Container(),
+              value: app.filterBy,
+              style:
+                  const TextStyle(color: primary, fontWeight: FontWeight.w300),
+              icon: const Icon(
+                Icons.filter_list,
+                color: primary,
+              ),
+              elevation: 0,
+              onChanged: (value) {
+                if (value == "Products") {
+                  app.changeSearchBy(newSearchBy: SearchBy.PRODUCTS);
+                } else {
+                  app.changeSearchBy(newSearchBy: SearchBy.RESTAURANTS);
+                }
+              },
+              items: <String>["Products", "Restaurants"]
+                  .map<DropdownMenuItem<String>>((String value) {
+                return DropdownMenuItem<String>(
+                    value: value, child: Text(value));
+              }).toList(),
+            ),
+          ),
           filled: true,
           fillColor: white,
           hintText: hintText,
