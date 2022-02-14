@@ -9,6 +9,8 @@ import 'package:food_delivery/src/providers/restaurant_provider%20.dart';
 import 'package:food_delivery/src/providers/user_provider.dart';
 
 import 'package:food_delivery/src/screens/cart.dart';
+import 'package:food_delivery/src/screens/login.dart';
+import 'package:food_delivery/src/screens/order.dart';
 import 'package:food_delivery/src/screens/product_search.dart';
 import 'package:food_delivery/src/screens/restaurants_search.dart';
 import 'package:food_delivery/src/widgets/categories.dart';
@@ -109,52 +111,52 @@ class _HomeState extends State<Home> {
     );
   }
 
-  Drawer myDrawer(UserProvider UserProvider) {
+  Drawer myDrawer(UserProvider userProvider) {
     return Drawer(
       child: ListView(
         children: [
           UserAccountsDrawerHeader(
             decoration: BoxDecoration(color: primary),
             accountName: CustomText(
-              text: UserProvider.userModel?.name ?? 'email',
+              text: userProvider.userModel?.name ?? "username lading...",
               color: white,
               weight: FontWeight.bold,
               size: 18,
             ),
             accountEmail: CustomText(
-              text: UserProvider.userModel?.email ?? 'error',
+              text: userProvider.userModel?.email ?? "email loading...",
               color: white,
             ),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              changeScreen(context, Home());
+            },
             leading: Icon(Icons.home),
             title: CustomText(text: "Home"),
           ),
           ListTile(
-            onTap: () {},
-            leading: Icon(Icons.fastfood),
-            title: CustomText(text: "Food I like"),
-          ),
-          ListTile(
-            onTap: () {},
-            leading: Icon(Icons.restaurant),
-            title: CustomText(text: "Liked restaurants"),
-          ),
-          ListTile(
-            onTap: () {},
+            onTap: () async {
+              await userProvider.getOrders();
+              changeScreen(context, OrdersScreen());
+            },
             leading: Icon(Icons.bookmark_border),
             title: CustomText(text: "My orders"),
           ),
           ListTile(
-            onTap: () {},
+            onTap: () {
+              changeScreen(context, CartScreen());
+            },
             leading: Icon(Icons.shopping_cart),
             title: CustomText(text: "Cart"),
           ),
           ListTile(
-            onTap: () {},
-            leading: Icon(Icons.settings),
-            title: CustomText(text: "Settings"),
+            onTap: () {
+              userProvider.signOut();
+              changeScreenReplacement(context, LoginScreen());
+            },
+            leading: Icon(Icons.exit_to_app),
+            title: CustomText(text: "Log out"),
           ),
         ],
       ),

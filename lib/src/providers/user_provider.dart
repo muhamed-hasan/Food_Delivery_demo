@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/widgets.dart';
+import 'package:food_delivery/src/helpers/order_services.dart';
 import 'package:food_delivery/src/helpers/user_services.dart';
 import 'package:food_delivery/src/models/cart_item_model.dart';
+import 'package:food_delivery/src/models/order_model.dart';
 import 'package:food_delivery/src/models/product_model.dart';
 import 'package:food_delivery/src/models/user_model.dart';
 import 'package:uuid/uuid.dart';
@@ -20,6 +22,8 @@ class UserProvider with ChangeNotifier {
   final _userServices = UserServices();
   UserModel? _userModel;
   User? _user;
+  List<OrderModel> orders = [];
+  OrderServices _orderServices = OrderServices();
 
 //  getter
   UserModel? get userModel => _userModel;
@@ -148,5 +152,10 @@ class UserProvider with ChangeNotifier {
       print("THE ERROR 4444 ${e.toString()}");
       return false;
     }
+  }
+
+  getOrders() async {
+    orders = await _orderServices.getUserOrders(userId: _user!.uid);
+    notifyListeners();
   }
 }

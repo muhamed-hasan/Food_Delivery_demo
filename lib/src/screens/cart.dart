@@ -17,19 +17,13 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final _key = GlobalKey<ScaffoldState>();
-  // OrderServices _orderServices = OrderServices();
+  OrderServices _orderServices = OrderServices();
   @override
   Widget build(BuildContext context) {
     final user = Provider.of<UserProvider>(context);
     final app = Provider.of<AppProvider>(context);
+    List<CartItemModel> cartItem = user.userModel!.cart!;
 
-    List<CartItemModel> cartItem = [];
-    final List? cartItems = user.userModel?.cart;
-    cartItems?.forEach(
-      (element) {
-        cartItem.add(CartItemModel.fromMap(element));
-      },
-    );
     return Scaffold(
       key: _key,
       appBar: AppBar(
@@ -47,7 +41,7 @@ class _CartScreenState extends State<CartScreen> {
       body: app.isLoading
           ? Loading()
           : ListView.builder(
-              itemCount: cartItems?.length,
+              itemCount: cartItem.length,
               itemBuilder: (_, index) {
                 return Padding(
                   padding: const EdgeInsets.all(8),
@@ -228,7 +222,40 @@ class _CartScreenState extends State<CartScreen> {
                                       SizedBox(
                                         width: 320.0,
                                         child: RaisedButton(
-                                          onPressed: () {},
+                                          onPressed: () async {
+                                            var uuid = Uuid();
+                                            String id = uuid.v4();
+                                            _orderServices.createOrder(
+                                                userId: user.user!.uid,
+                                                id: id,
+                                                description:
+                                                    "Some random description",
+                                                status: "complete",
+                                                totalPrice: user
+                                                    .userModel!.totalCartPrice,
+                                                cart: cartItem);
+                                            for (CartItemModel cartItem
+                                                in cartItem) {
+                                              bool value =
+                                                  await user.removeFromCart(
+                                                      cartItem: cartItem);
+                                              if (value) {
+                                                user.reloadUserModel();
+                                                print("Item added to cart");
+                                                _key.currentState!.showSnackBar(
+                                                    SnackBar(
+                                                        content: Text(
+                                                            "Removed from Cart!")));
+                                              } else {
+                                                print("ITEM WAS NOT REMOVED");
+                                              }
+                                            }
+                                            _key.currentState!.showSnackBar(
+                                                SnackBar(
+                                                    content: Text(
+                                                        "Order created!")));
+                                            Navigator.pop(context);
+                                          },
                                           child: Text(
                                             "Accept",
                                             style:
