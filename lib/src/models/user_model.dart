@@ -1,15 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:food_delivery/src/models/cart_item_model.dart';
 
 class UserModel {
   static const NAME = "name";
   static const EMAIL = "email";
   static const ID = "id";
   static const STRIPE_ID = "stripeId";
-
+  static const CART = "cart";
   String? _name;
   String? _email;
   String? _id;
   String? _stripeId;
+  List? cart;
+  double totalCartPrice = 0;
+  double _priceSum = 0;
+  int _quantitySum = 0;
 
 //  getters
   String get name => _name ?? 'user';
@@ -23,5 +28,22 @@ class UserModel {
     _email = data[EMAIL];
     _id = data[ID];
     _stripeId = data[STRIPE_ID];
+    cart = data[CART] ?? [];
+    totalCartPrice = data[CART] == null ? 0 : getTotalPrice(cart: data[CART]);
+  }
+  double getTotalPrice({required List? cart}) {
+    if (cart == null) {
+      return 0;
+    }
+    for (Map<String, dynamic> cartItem in cart) {
+      _priceSum += cartItem["price"] * cartItem["quantity"] as double;
+    }
+
+    double total = _priceSum;
+
+    print("THE TOTAL IS $total");
+    print("THE TOTAL IS $total");
+
+    return total;
   }
 }

@@ -9,7 +9,10 @@ class RestaurantModel {
   static const IMAGE = "image";
   static const POPULAR = "popular";
 
-  int? _id;
+  String? _id;
+
+  List<String>? _userLikes;
+
   String? _name;
   String? _image;
   double? _rating;
@@ -18,7 +21,7 @@ class RestaurantModel {
   int? _rates;
 
 //  getters
-  int? get id => _id;
+  String? get id => _id;
 
   String? get name => _name;
 

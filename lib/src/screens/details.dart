@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery/src/helpers/screen_navigation.dart';
 import 'package:food_delivery/src/models/product_model.dart';
+import 'package:food_delivery/src/providers/user_provider.dart';
+import 'package:food_delivery/src/screens/cart.dart';
 import 'package:food_delivery/src/widgets/custom_text.dart';
+import 'package:provider/provider.dart';
 
 import '../helpers/style.dart';
 
@@ -17,6 +21,7 @@ class _DetailsScreenState extends State<DetailsScreen> {
   int quantity = 1;
   @override
   Widget build(BuildContext context) {
+    final user_provider = Provider.of<UserProvider>(context);
     return Scaffold(
       appBar: AppBar(
         iconTheme: IconThemeData(color: black),
@@ -25,7 +30,9 @@ class _DetailsScreenState extends State<DetailsScreen> {
         actions: [
           IconButton(
             icon: Icon(Icons.shopping_cart),
-            onPressed: () {},
+            onPressed: () {
+              changeScreen(context, CartScreen());
+            },
           ),
         ],
         leading: IconButton(
@@ -79,7 +86,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                       }),
                 ),
                 GestureDetector(
-                  onTap: () {},
+                  onTap: () {
+                    user_provider.addToCart(
+                        product: widget.product, quantity: quantity);
+                    user_provider.reloadUserModel();
+                  },
                   child: Container(
                     decoration: BoxDecoration(
                         color: primary,

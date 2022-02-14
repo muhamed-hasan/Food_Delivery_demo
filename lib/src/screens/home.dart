@@ -8,7 +8,7 @@ import 'package:food_delivery/src/providers/products_provider.dart';
 import 'package:food_delivery/src/providers/restaurant_provider%20.dart';
 import 'package:food_delivery/src/providers/user_provider.dart';
 
-import 'package:food_delivery/src/screens/bag.dart';
+import 'package:food_delivery/src/screens/cart.dart';
 import 'package:food_delivery/src/screens/product_search.dart';
 import 'package:food_delivery/src/screens/restaurants_search.dart';
 import 'package:food_delivery/src/widgets/categories.dart';
@@ -53,7 +53,7 @@ class _HomeState extends State<Home> {
             children: [
               IconButton(
                   onPressed: () {
-                    changeScreen(context, BagScreen());
+                    changeScreen(context, CartScreen());
                   },
                   icon: const Icon(Icons.shopping_cart_outlined)),
             ],

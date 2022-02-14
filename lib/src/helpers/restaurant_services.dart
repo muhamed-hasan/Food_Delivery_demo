@@ -22,7 +22,7 @@ class RestaurantServices {
         return restaurants;
       });
 
-  Future<RestaurantModel> getRestaurantById({required int id}) => _firestore
+  Future<RestaurantModel> getRestaurantById({required String id}) => _firestore
           .collection(appName)
           .doc(appName)
           .collection(collection)

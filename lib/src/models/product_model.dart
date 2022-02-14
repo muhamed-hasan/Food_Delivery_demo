@@ -15,14 +15,15 @@ class ProductModel {
 
   String? _id;
   String? _name;
-  int? _restaurantId;
+  String? _restaurantId;
   String? _restaurant;
   String? _category;
   String? _image;
+  String? _description;
+
   double? _rating;
   double? _price;
   int? _rates;
-  String? _description;
 
   bool? _featured;
 
@@ -32,7 +33,7 @@ class ProductModel {
 
   String? get restaurant => _restaurant;
 
-  int? get restaurantId => _restaurantId;
+  String? get restaurantId => _restaurantId;
 
   String? get category => _category;
 

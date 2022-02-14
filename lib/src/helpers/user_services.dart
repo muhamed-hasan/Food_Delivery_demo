@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:food_delivery/src/models/cart_item_model.dart';
 import 'package:food_delivery/src/models/user_model.dart';
 
 // Create and get user from FireStore
@@ -35,5 +36,30 @@ class UserServices {
         .doc(id)
         .get();
     return UserModel.fromSnapshot(user);
+  }
+
+  void addToCart({required String userId, required CartItemModel cartItem}) {
+    print("THE USER ID IS: $userId");
+    print("cart items are: ${cartItem.toString()}");
+    _fireStore
+        .collection(appName)
+        .doc(appName)
+        .collection(collection)
+        .doc(userId)
+        .update({
+      "cart": FieldValue.arrayUnion([cartItem.toMap()])
+    });
+  }
+
+  void removeFromCart(
+      {required String userId, required CartItemModel cartItem}) {
+    _fireStore
+        .collection(appName)
+        .doc(appName)
+        .collection(collection)
+        .doc(userId)
+        .update({
+      "cart": FieldValue.arrayRemove([cartItem.toMap()])
+    });
   }
 }

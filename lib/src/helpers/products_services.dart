@@ -22,7 +22,8 @@ class ProductService {
         return products;
       });
 
-  Future<List<ProductModel>> getProductsByRestaurant({required int id}) async =>
+  Future<List<ProductModel>> getProductsByRestaurant(
+          {required String id}) async =>
       _firestore
           .collection(appName)
           .doc(appName)
