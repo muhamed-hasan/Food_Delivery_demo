@@ -4,58 +4,58 @@ const TEMP = 'flutter-temp-cache';
 const CACHE_NAME = 'flutter-app-cache';
 const RESOURCES = {
   "assets/AssetManifest.json": "9b85f27b6b2cb9abc9a309edc83d5a44",
-"assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
-"assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
-"assets/images/1.jpg": "f67b1586d809a38c0b6a8ff961c35ecc",
-"assets/images/2.jpg": "2801d492e4c469741ef27ffb731b9967",
-"assets/images/3.jpg": "03bffe39c8c2aa87383253e63ac72d14",
-"assets/images/4.jpeg": "faf124acb9be50e45a2e96b2cb674828",
-"assets/images/5.jpg": "24e13583abdc648f0a9a8f74eeb8f3a5",
-"assets/images/avatar.png": "356d6964a5aa0aa06391b83c31bb3f36",
-"assets/images/fish.png": "1c1c127e3f56f5938083fa11ded45bf7",
-"assets/images/food.jpg": "bc42f2927c5fa2beebb9dec2a0097e3b",
-"assets/images/home.png": "954657f2e72d288e22cf65fcf9efd3da",
-"assets/images/ice-cream.png": "e23dfbb77f2f3f0cefbe31c71cb1576c",
-"assets/images/pint.png": "d812752becef94933ea359882bd66617",
-"assets/images/salad.png": "c3c56aaa6580021e24021e43ad2567b0",
-"assets/images/sandwich.png": "f26636ec283819d2f00b354051230178",
-"assets/images/shopping-bag.png": "b933a76b252d1de63a81e703b68aab64",
-"assets/images/steak.png": "569d145faf2f1cb6d49b57da3f074b88",
-"assets/images/target.png": "8d816ef6e4f5ad43c1e75dcef3639c64",
-"assets/NOTICES": "ea2226651be6ff45bb013713c282f7c1",
-"assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
-"canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
-"canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
-"canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
-"canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
-"favicon.png": "5dcef449791fa27946b3d35ad8803796",
-"icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
-"icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
-"icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
-"index.html": "09eaa67a1b950c1575fe0881a86746d7",
-"/": "09eaa67a1b950c1575fe0881a86746d7",
-"main.dart.js": "f03059a8e3c50c48f7fc524f67b2999a",
-"manifest.json": "f1802148efc2cf1288fc1ac1a19f08ce",
-"version.json": "15de732365aca93168912a516609375d"
+  "assets/FontManifest.json": "dc3d03800ccca4601324923c0b1d6d57",
+  "assets/fonts/MaterialIcons-Regular.otf": "4e6447691c9509f7acdbf8a931a85ca1",
+  "assets/images/1.jpg": "f67b1586d809a38c0b6a8ff961c35ecc",
+  "assets/images/2.jpg": "2801d492e4c469741ef27ffb731b9967",
+  "assets/images/3.jpg": "03bffe39c8c2aa87383253e63ac72d14",
+  "assets/images/4.jpeg": "faf124acb9be50e45a2e96b2cb674828",
+  "assets/images/5.jpg": "24e13583abdc648f0a9a8f74eeb8f3a5",
+  "assets/images/avatar.png": "356d6964a5aa0aa06391b83c31bb3f36",
+  "assets/images/fish.png": "1c1c127e3f56f5938083fa11ded45bf7",
+  "assets/images/food.jpg": "bc42f2927c5fa2beebb9dec2a0097e3b",
+  "assets/images/home.png": "954657f2e72d288e22cf65fcf9efd3da",
+  "assets/images/ice-cream.png": "e23dfbb77f2f3f0cefbe31c71cb1576c",
+  "assets/images/pint.png": "d812752becef94933ea359882bd66617",
+  "assets/images/salad.png": "c3c56aaa6580021e24021e43ad2567b0",
+  "assets/images/sandwich.png": "f26636ec283819d2f00b354051230178",
+  "assets/images/shopping-bag.png": "b933a76b252d1de63a81e703b68aab64",
+  "assets/images/steak.png": "569d145faf2f1cb6d49b57da3f074b88",
+  "assets/images/target.png": "8d816ef6e4f5ad43c1e75dcef3639c64",
+  "assets/NOTICES": "ea2226651be6ff45bb013713c282f7c1",
+  "assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "6d342eb68f170c97609e9da345464e5e",
+  "canvaskit/canvaskit.js": "c2b4e5f3d7a3d82aed024e7249a78487",
+  "canvaskit/canvaskit.wasm": "4b83d89d9fecbea8ca46f2f760c5a9ba",
+  "canvaskit/profiling/canvaskit.js": "ae2949af4efc61d28a4a80fffa1db900",
+  "canvaskit/profiling/canvaskit.wasm": "95e736ab31147d1b2c7b25f11d4c32cd",
+  "favicon.png": "5dcef449791fa27946b3d35ad8803796",
+  "icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
+  "icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
+  "icons/Icon-maskable-192.png": "c457ef57daa1d16f64b27b786ec2ea3c",
+  "icons/Icon-maskable-512.png": "301a7604d45b3e739efc881eb04896ea",
+  "index.html": "09eaa67a1b950c1575fe0881a86746d7",
+  "/Food_Delivery_demo/": "09eaa67a1b950c1575fe0881a86746d7",
+  "main.dart.js": "f03059a8e3c50c48f7fc524f67b2999a",
+  "manifest.json": "f1802148efc2cf1288fc1ac1a19f08ce",
+  "version.json": "15de732365aca93168912a516609375d"
 };
 
 // The application shell files that are downloaded before a service worker can
 // start.
 const CORE = [
-  "/",
-"main.dart.js",
-"index.html",
-"assets/NOTICES",
-"assets/AssetManifest.json",
-"assets/FontManifest.json"];
+  "/Food_Delivery_demo/",
+  "main.dart.js",
+  "index.html",
+  "assets/NOTICES",
+  "assets/AssetManifest.json",
+  "assets/FontManifest.json"];
 // During install, the TEMP cache is populated with the application shell files.
 self.addEventListener("install", (event) => {
   self.skipWaiting();
   return event.waitUntil(
     caches.open(TEMP).then((cache) => {
       return cache.addAll(
-        CORE.map((value) => new Request(value, {'cache': 'reload'})));
+        CORE.map((value) => new Request(value, { 'cache': 'reload' })));
     })
   );
 });
@@ -63,8 +63,8 @@ self.addEventListener("install", (event) => {
 // During activate, the cache is populated with the temp files downloaded in
 // install. If this service worker is upgrading from one with a saved
 // MANIFEST, then use this to retain unchanged resource files.
-self.addEventListener("activate", function(event) {
-  return event.waitUntil(async function() {
+self.addEventListener("activate", function (event) {
+  return event.waitUntil(async function () {
     try {
       var contentCache = await caches.open(CACHE_NAME);
       var tempCache = await caches.open(TEMP);
@@ -88,7 +88,7 @@ self.addEventListener("activate", function(event) {
       for (var request of await contentCache.keys()) {
         var key = request.url.substring(origin.length + 1);
         if (key == "") {
-          key = "/";
+          key = "/Food_Delivery_demo/";
         }
         // If a resource from the old manifest is not in the new cache, or if
         // the MD5 sum has changed, delete it. Otherwise the resource is left
@@ -130,7 +130,7 @@ self.addEventListener("fetch", (event) => {
     key = key.split('?v=')[0];
   }
   if (event.request.url == origin || event.request.url.startsWith(origin + '/#') || key == '') {
-    key = '/';
+    key = '/Food_Delivery_demo/';
   }
   // If the URL is not the RESOURCE list then return to signal that the
   // browser should take over.
@@ -138,11 +138,11 @@ self.addEventListener("fetch", (event) => {
     return;
   }
   // If the URL is the index.html, perform an online-first request.
-  if (key == '/') {
+  if (key == '/Food_Delivery_demo/') {
     return onlineFirst(event);
   }
   event.respondWith(caches.open(CACHE_NAME)
-    .then((cache) =>  {
+    .then((cache) => {
       return cache.match(event.request).then((response) => {
         // Either respond with the cached resource, or perform a fetch and
         // lazily populate the cache.
@@ -177,7 +177,7 @@ async function downloadOffline() {
   for (var request of await contentCache.keys()) {
     var key = request.url.substring(origin.length + 1);
     if (key == "") {
-      key = "/";
+      key = "/Food_Delivery_demo/";
     }
     currentContent[key] = true;
   }
